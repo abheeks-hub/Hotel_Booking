@@ -1,0 +1,419 @@
+/* small custom tweaks */
+:root {
+  --glass: rgba(255,255,255,0.5);
+  --accent-from: #6366f1;
+  --accent-to: #4f46e5;
+  --btn-bg: linear-gradient(90deg,var(--accent-from),var(--accent-to));
+}
+html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+
+/* enable backdrop filter for glassmorphism (fallback) */
+.backdrop-blur-md { -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
+
+/* slider fade transitions */
+#slider img { transition: opacity 600ms ease-in-out; }
+
+/* loading overlay */
+#loadingOverlay { opacity: 1; }
+#loadingOverlay.hidden { opacity: 0; pointer-events: none; }
+
+/* toast */
+#toastContainer { pointer-events: none; }
+.toast {
+  pointer-events: auto;
+  min-width: 220px;
+  max-width: 360px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(2,6,23,0.08);
+  transform-origin: right top;
+  animation: toast-in 300ms ease forwards;
+  font-weight: 600;
+}
+.toast.success { background: #ecfdf5; color: #065f46; }
+.toast.info    { background: #eff6ff; color: #0f172a; }
+.toast.error   { background: #fff1f2; color: #9f1239; }
+@keyframes toast-in { from { opacity: 0; transform: translateY(-8px) scale(.96); } to { opacity:1; transform: translateY(0) scale(1); } }
+
+/* hamburger icon */
+.hamburger { display:inline-block; width:28px; height:20px; position:relative; cursor:pointer; color: #0f172a; }
+.hamburger .line { position:absolute; left:0; right:0; height:2px; background:currentColor; border-radius:2px; transition: transform 300ms cubic-bezier(.2,.9,.3,1), opacity 200ms, top 300ms; }
+.hamburger .line1 { top:2px; }
+.hamburger .line2 { top:9px; }
+.hamburger .line3 { top:16px; }
+/* open state => cross */
+.hamburger.open .line1 { top:9px; transform: rotate(45deg); }
+.hamburger.open .line2 { opacity:0; transform: scaleX(0); }
+.hamburger.open .line3 { top:9px; transform: rotate(-45deg); }
+
+/* mobile menu slide: using max-height to animate open/close */
+#mobileMenu > div { transition: transform 300ms ease, opacity 300ms ease; }
+#mobileMenu.open { max-height: 400px; } /* adjust if menu grows */
+#mobileMenu { max-height: 0; overflow: hidden; }
+
+/* slide-in animation for the mobile menu contents */
+@keyframes slideIn { from { transform: translateY(-6px); opacity: 0 } to { transform: translateY(0); opacity: 1 } }
+.animate-slide-in { animation: slideIn 260ms ease; }
+
+/* small responsive tweaks */
+@media (min-width: 1024px) {
+  header nav { padding-left: 1.5rem; padding-right: 1.5rem; }
+}
+
+/* ===========================
+   BUTTON SYSTEM — modern hover interactions
+   Apply to: button, a.btn, input[type="submit"]
+   =========================== */
+
+/* base reset for interactive elements to have consistent look */
+button, a.btn, input[type="submit"] {
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+  border: 0;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: transform 220ms cubic-bezier(.2,.9,.3,1), box-shadow 220ms ease, opacity 160ms ease;
+  will-change: transform;
+  user-select: none;
+}
+
+/* primary button (use class="btn btn-primary" or many existing buttons will match) */
+.btn { padding: 0.6rem 1rem; border-radius: 0.75rem; font-size: 0.95rem; }
+.btn-primary {
+  color: white;
+  background: var(--btn-bg);
+  background-size: 200% 100%;
+  box-shadow: 0 6px 18px rgba(79,70,229,0.18);
+  transform-origin: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* subtle "lift" + gradient move on hover */
+.btn-primary:hover {
+  transform: translateY(-4px) scale(1.01);
+  box-shadow: 0 16px 40px rgba(79,70,229,0.18);
+  background-position: 100% 0;
+}
+
+/* focus / keyboard-visible state */
+.btn-primary:focus-visible {
+  box-shadow: 0 0 0 4px rgba(99,102,241,0.14);
+}
+
+/* small shimmering highlight using pseudo-element */
+.btn-primary::after{
+  content: '';
+  position: absolute;
+  top: -30%;
+  left: -40%;
+  width: 40%;
+  height: 160%;
+  background: linear-gradient(120deg, rgba(255,255,255,0.12), rgba(255,255,255,0.02));
+  transform: rotate(25deg) translateX(-10%);
+  transition: transform 650ms cubic-bezier(.2,.9,.3,1), opacity 450ms ease;
+  opacity: 0;
+  pointer-events: none;
+}
+.btn-primary:hover::after { transform: rotate(25deg) translateX(100%); opacity: 1; }
+
+/* secondary / ghost variants */
+.btn-ghost {
+  background: transparent;
+  border: 1px solid rgba(15,23,42,0.06);
+  color: inherit;
+  box-shadow: 0 6px 18px rgba(2,6,23,0.04);
+}
+.btn-ghost:hover { transform: translateY(-3px); box-shadow: 0 14px 30px rgba(2,6,23,0.06); }
+
+/* outline variant */
+.btn-outline {
+  background: transparent;
+  border: 1px solid rgba(99,102,241,0.12);
+  color: var(--accent-from);
+}
+.btn-outline:hover { transform: translateY(-3px) scale(1.01); box-shadow: 0 10px 30px rgba(99,102,241,0.07); }
+
+/* small / pill / full-width utility */
+.btn-sm { padding: 0.35rem 0.6rem; font-size: .85rem; border-radius: .6rem; }
+.btn-pill { border-radius: 999px; }
+.btn-block { display: flex; width: 100%; }
+
+/* subtle icon-only button */
+.icon-btn {
+  width: 2.6rem; height: 2.6rem; border-radius: 0.9rem; display: inline-grid; place-items:center;
+  transition: transform 200ms ease, background 200ms ease;
+}
+.icon-btn:hover { transform: translateY(-4px); }
+
+/* disabled state */
+[disabled], .btn[disabled], a[aria-disabled="true"] {
+  opacity: .5; cursor: not-allowed; transform: none; box-shadow: none;
+}
+
+/* small interactive card hover for rooms (micro-lift) */
+article.rounded-xl:hover {
+  transform: translateY(-6px) scale(1.006);
+  transition: transform 260ms cubic-bezier(.2,.9,.3,1), box-shadow 260ms ease;
+  box-shadow: 0 20px 40px rgba(2,6,23,0.08);
+}
+
+/* accessibility helpers */
+a:focus, button:focus, input:focus, select:focus, textarea:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(99,102,241,0.08);
+  border-radius: 8px;
+}
+
+/* tiny helpers for subtle transitions site-wide */
+* { transition-property: background-color, color, border-color, box-shadow, transform, opacity; transition-duration: 180ms; transition-timing-function: ease; }
+
+/* end of CSS */
+/* ... (keep your existing CSS above unchanged) ... */
+
+/* tiny helpers for subtle transitions site-wide */
+* { transition-property: background-color, color, border-color, box-shadow, transform, opacity; transition-duration: 180ms; transition-timing-function: ease; }
+
+/* PASSWORD STRENGTH METER */
+.pwd-meter {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 6px;
+}
+.pwd-bar {
+  height: 8px;
+  background: rgba(15,23,42,0.06);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.pwd-bar > i {
+  display: block;
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #ef4444, #f97316); /* default red->orange */
+  transition: width 280ms ease, background 280ms ease;
+}
+.pwd-text {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #0f172a;
+}
+.pwd-text.weak { color: #dc2626; }      /* red */
+.pwd-text.medium { color: #f59e0b; }    /* amber */
+.pwd-text.strong { color: #10b981; }    /* green */
+
+/* small responsive tweaks (kept) */
+@media (min-width: 1024px) {
+  header nav { padding-left: 1.5rem; padding-right: 1.5rem; }
+}
+/* ======================
+   Feature cards — impressive glass + gradient accent
+   ====================== */
+
+.feature-grid { display: grid; gap: 1.25rem; grid-template-columns: repeat(1,1fr); }
+@media (min-width: 640px) { .feature-grid { grid-template-columns: repeat(3,1fr); } }
+
+.feature-card {
+  position: relative;
+  padding: 1.25rem;
+  border-radius: 1rem;
+  overflow: hidden;
+  background: linear-gradient(180deg, rgba(255,255,255,0.55), rgba(255,255,255,0.28));
+  color: #0f172a;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,0.12);
+  box-shadow: 0 8px 30px rgba(2,6,23,0.06);
+  transition: transform 360ms cubic-bezier(.2,.9,.3,1), box-shadow 360ms ease;
+  will-change: transform;
+}
+
+/* dark mode variant */
+.dark .feature-card {
+  background: linear-gradient(180deg, rgba(17,24,39,0.56), rgba(17,24,39,0.38));
+  color: #e6eefc;
+  border: 1px solid rgba(255,255,255,0.04);
+  box-shadow: 0 12px 40px rgba(3,7,18,0.5);
+}
+
+/* accent top streak that animates on hover */
+.feature-card::before {
+  content: "";
+  position: absolute;
+  left: -40%;
+  top: -30%;
+  width: 180%;
+  height: 50%;
+  background: linear-gradient(90deg, rgba(99,102,241,0.12), rgba(79,70,229,0.06), rgba(99,102,241,0.12));
+  transform: rotate(12deg) translateX(-30%);
+  transition: transform 700ms cubic-bezier(.2,.9,.3,1), opacity 600ms ease;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* animated border glow (thin) */
+.feature-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 1rem;
+  padding: 1px; /* used for gradient edge look when used with background-clip */
+  background: linear-gradient(90deg, rgba(99,102,241,0.18), rgba(79,70,229,0.18));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0.06;
+  pointer-events: none;
+}
+
+/* on hover: lift, stronger shadow, show streak */
+.feature-card:hover {
+  transform: translateY(-8px) scale(1.01);
+  box-shadow: 0 26px 70px rgba(79,70,229,0.12);
+}
+.feature-card:hover::before { transform: rotate(12deg) translateX(40%); opacity: 1; transition-duration: 520ms; }
+.feature-card:hover::after { opacity: 0.12; transition-duration: 420ms; }
+
+/* icon wrapper */
+.feature-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(180deg, rgba(255,255,255,0.85), rgba(255,255,255,0.6));
+  box-shadow: 0 6px 22px rgba(2,6,23,0.06), inset 0 -6px 18px rgba(0,0,0,0.02);
+  margin-right: 0.75rem;
+}
+.dark .feature-icon {
+  background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
+  box-shadow: 0 8px 28px rgba(3,7,18,0.4);
+}
+
+/* title & text */
+.feature-title { font-weight: 700; font-size: 1.05rem; letter-spacing: -0.01em; margin-bottom: 0.25rem; }
+.feature-desc  { color: rgba(15,23,42,0.7); font-size: 0.95rem; line-height: 1.45; }
+.dark .feature-desc { color: rgba(230,238,252,0.82); }
+
+/* small CTA under each card */
+.feature-cta { margin-top: 0.9rem; display:inline-flex; gap:0.5rem; align-items:center; }
+
+/* subtle animated arrow */
+.feature-cta .arrow {
+  display:inline-block; transition: transform 280ms cubic-bezier(.2,.9,.3,1), opacity 220ms;
+}
+.feature-cta:hover .arrow { transform: translateX(6px); opacity: 1; }
+
+/* optional — small decorative dot pattern in corner */
+.feature-deco {
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
+  opacity: 0.08;
+  pointer-events: none;
+  filter: blur(0.2px);
+}
+/* ---------- DARK MODE VISIBILITY FIXES ----------
+   Paste this after your existing CSS (near the end of styles.css)
+-------------------------------------------------- */
+
+:root { /* fallback text colors for dark theme when .dark present */ }
+.dark,
+html.dark {
+  /* body-level baseline */
+  color: #e6eefc !important;            /* default body text in dark mode */
+  --site-text: #e6eefc;
+  --muted-text: rgba(230,238,252,0.78);
+  --muted-2: rgba(230,238,252,0.6);
+  --input-bg: rgba(255,255,255,0.03);
+  --input-border: rgba(255,255,255,0.06);
+}
+
+/* Global text elements */
+.dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6 {
+  color: #f8fbff !important;
+}
+.dark p, .dark li, .dark span, .dark label, .dark .feature-desc {
+  color: var(--muted-text) !important;
+}
+
+/* Feature card titles/descriptions */
+.dark .feature-title { color: #f8fbff !important; }
+.dark .feature-desc  { color: var(--muted-2) !important; }
+
+/* Navbar / links */
+.dark header nav, .dark header nav a, .dark .nav-link {
+  color: var(--site-text) !important;
+}
+.dark header nav a:hover { color: #ffffff !important; }
+
+/* Buttons: ensure text remains visible */
+.dark .btn, .dark .btn-primary, .dark .btn-ghost, .dark .btn-outline {
+  color: #eff6ff !important;
+}
+.dark .btn-ghost { border-color: rgba(255,255,255,0.06) !important; }
+
+/* Inputs, selects, textareas */
+.dark input, .dark select, .dark textarea {
+  color: var(--site-text) !important;
+  background: var(--input-bg) !important;
+  border-color: var(--input-border) !important;
+}
+.dark input::placeholder, .dark textarea::placeholder {
+  color: rgba(230,238,252,0.5) !important;
+}
+
+/* Password meter text */
+.dark .pwd-text { color: var(--muted-text) !important; }
+
+/* Toasts in dark mode — make their text readable and adjust bg tint */
+.dark .toast {
+  color: #e6eefc !important;
+  background: linear-gradient(180deg, rgba(9,10,20,0.48), rgba(9,10,20,0.32)) !important;
+  box-shadow: 0 10px 30px rgba(2,6,23,0.6) !important;
+}
+.dark .toast.success { background: linear-gradient(180deg, rgba(6,78,59,0.28), rgba(6,78,59,0.18)) !important; color: #dffaf3 !important; }
+.dark .toast.error   { background: linear-gradient(180deg, rgba(139,25,50,0.28), rgba(139,25,50,0.16)) !important; color: #ffe9ee !important; }
+
+/* Icons and SVG strokes: use currentColor so they pick up correct contrast */
+.feature-icon svg, .feature-icon svg * {
+  stroke: currentColor !important;
+  fill: none !important;
+  color: #c7d2fe; /* soft lavender icon color in dark mode */
+}
+.dark .feature-icon { color: #c7d2fe !important; }
+
+/* Small UI helpers */
+.dark .text-muted { color: var(--muted-text) !important; }
+.dark .small { color: var(--muted-2) !important; }
+
+/* Ensure footer small links readable */
+.dark footer a { color: var(--muted-text) !important; }
+.dark footer a:hover { color: #ffffff !important; }
+
+/* Ensure card CTA small text contrast */
+.dark .feature-cta .text-sm { color: var(--muted-2) !important; }
+
+/* Force inline SVG strokes inside other components (e.g., nav icons) */
+svg[aria-hidden] path, svg[aria-hidden] circle, svg[aria-hidden] rect {
+  stroke: currentColor !important;
+  fill: none !important;
+}
+
+/* Specific override: badge/info boxes that were light on light bg */
+.dark .p-3.bg-white\/60, .dark .bg-white\/60 {
+  background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02)) !important;
+  color: var(--muted-text) !important;
+}
+
+/* Optional: reduce opacity for decorative elements so they don't wash text */
+.dark .feature-deco { opacity: 0.06 !important; }
+
+/* End: dark mode visibility fixes */
+
+/* end of CSS file */

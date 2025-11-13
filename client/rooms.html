@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en" class="antialiased">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Rooms — Azure Suites</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { darkMode: 'class', theme: { extend: { colors: { primary: { 50:'#eef2ff',100:'#e0e7ff',500:'#6366f1' } } } } }
+  </script>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-100">
+  <!-- include the same navbar block as index.html for consistency -->
+  <header class="fixed top-4 left-0 right-0 z-50 px-4">
+    <nav class="max-w-6xl mx-auto flex items-center justify-between p-3 backdrop-blur-md bg-white/40 dark:bg-gray-900/40 rounded-2xl shadow-lg">
+      <div class="flex items-center gap-3">
+        <a href="index.html" class="flex items-center gap-2">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-primary-400 to-primary-600 flex items-center justify-center text-white font-bold">A</div>
+        </a>
+      </div>
+
+      <div class="hidden md:flex items-center gap-6">
+        <a href="index.html" class="hover:underline">Home</a>
+        <a href="rooms.html" class="hover:underline">Rooms</a>
+        <a href="booking.html" class="hover:underline">Book</a>
+        <a href="contact.html" class="hover:underline">Contact</a>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <button id="themeToggle" class="p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800">🌙</button>
+        <a href="login.html" class="hidden md:inline-block px-4 py-2 bg-primary-500 text-white rounded-lg">Login</a>
+        <button id="mobileMenuBtn" class="md:hidden p-2"><span class="hamburger" id="hamburger"><span class="line line1"></span><span class="line line2"></span><span class="line line3"></span></span></button>
+      </div>
+    </nav>
+
+    <div id="mobileMenu" class="md:hidden mt-3 max-w-6xl mx-auto overflow-hidden max-h-0 transition-[max-height] duration-400">
+      <div class="backdrop-blur-md bg-white/60 dark:bg-gray-900/60 rounded-xl p-4 shadow-lg">
+        <a href="index.html" class="block py-2">Home</a>
+        <a href="rooms.html" class="block py-2">Rooms</a>
+        <a href="booking.html" class="block py-2">Book</a>
+        <a href="contact.html" class="block py-2">Contact</a>
+        <a href="login.html" class="block py-2">Login</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="pt-36 max-w-6xl mx-auto p-6">
+    <h1 class="text-3xl font-bold">Our Rooms</h1>
+    <p class="mt-2 text-gray-600 dark:text-gray-300">Choose a room that fits your vibe — from cozy to luxurious.</p>
+
+    <!-- FILTERS -->
+    <div class="mt-6 flex flex-col sm:flex-row sm:items-center sm:gap-4 gap-3">
+      <div class="flex items-center gap-2">
+        <label class="text-sm">Type:</label>
+        <select id="typeFilter" class="p-2 rounded-md border">
+          <option value="all">All</option>
+          <option value="deluxe">Deluxe</option>
+          <option value="superior">Superior</option>
+          <option value="suite">Suite</option>
+        </select>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <label class="text-sm">Max price:</label>
+        <input id="priceFilter" type="range" min="1000" max="15000" step="500" value="15000" class="w-48">
+        <span id="priceLabel" class="text-sm">₹15,000</span>
+      </div>
+
+      <div class="ml-auto">
+        <button id="resetFilters" class="px-3 py-2 border rounded-md">Reset</button>
+      </div>
+    </div>
+
+    <div id="roomsGrid" class="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- Cards with data-price and data-type attributes -->
+      <article class="rounded-xl overflow-hidden bg-white/60 dark:bg-gray-800/60 shadow" data-price="4499" data-type="deluxe">
+        <img src="https://picsum.photos/800/600?image=1025" class="w-full h-48 object-cover">
+        <div class="p-4">
+          <div class="flex justify-between">
+            <h3 class="font-semibold">Deluxe Room</h3>
+            <div class="text-primary-500 font-bold">₹4,499</div>
+          </div>
+          <p class="text-sm mt-2">King bed · Free WiFi · Breakfast included</p>
+          <div class="mt-4 flex gap-3">
+            <a href="booking.html" class="px-3 py-2 bg-primary-500 text-white rounded-lg text-sm">Book</a>
+            <a href="#" class="px-3 py-2 border rounded-lg text-sm">Details</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="rounded-xl overflow-hidden bg-white/60 dark:bg-gray-800/60 shadow" data-price="6199" data-type="superior">
+        <img src="https://picsum.photos/800/600?image=1001" class="w-full h-48 object-cover">
+        <div class="p-4">
+          <div class="flex justify-between">
+            <h3 class="font-semibold">Comfort Room</h3>
+            <div class="text-primary-500 font-bold">₹6,199</div>
+          </div>
+          <p class="text-sm mt-2">Double bed · Free Breakfast</p>
+          <div class="mt-4 flex gap-3">
+            <a href="booking.html" class="px-3 py-2 bg-primary-500 text-white rounded-lg text-sm">Book</a>
+            <a href="#" class="px-3 py-2 border rounded-lg text-sm">Details</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="rounded-xl overflow-hidden bg-white/60 dark:bg-gray-800/60 shadow" data-price="10999" data-type="suite">
+        <img src="https://picsum.photos/800/600?image=998" class="w-full h-48 object-cover">
+        <div class="p-4">
+          <div class="flex justify-between">
+            <h3 class="font-semibold">Executive Suite</h3>
+            <div class="text-primary-500 font-bold">₹10,999</div>
+          </div>
+          <p class="text-sm mt-2">Living area · Minibar</p>
+          <div class="mt-4 flex gap-3">
+            <a href="booking.html" class="px-3 py-2 bg-primary-500 text-white rounded-lg text-sm">Book</a>
+            <a href="#" class="px-3 py-2 border rounded-lg text-sm">Details</a>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </main>
+
+  <script src="js/script.js" defer></script>
+</body>
+</html>

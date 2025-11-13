@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en" class="antialiased">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sign up — Comfort Zone</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>tailwind.config = { darkMode:'class', theme: { extend: { colors: { primary: {50:'#eef2ff',100:'#e0e7ff',500:'#6366f1'} } } } }</script>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-100">
+
+  <!-- NAVBAR -->
+  <header class="fixed top-4 left-0 right-0 z-50 px-4">
+    <nav class="max-w-6xl mx-auto flex items-center justify-between p-3 backdrop-blur-md bg-white/40 dark:bg-gray-900/40 rounded-2xl shadow-lg">
+      <div class="flex items-center gap-3">
+        <a href="index.html" class="flex items-center gap-2">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-primary-400 to-primary-600 flex items-center justify-center text-white font-bold">A</div>
+          <div class="hidden sm:block">
+            <div class="font-semibold">Azure Suites</div>
+            <div class="text-xs text-gray-600 dark:text-gray-300">Comfort & Style</div>
+          </div>
+        </a>
+      </div>
+
+      <div class="hidden md:flex items-center gap-6">
+        <a href="index.html" class="hover:underline">Home</a>
+        <a href="rooms.html" class="hover:underline">Rooms</a>
+        <a href="booking.html" class="hover:underline">Book</a>
+        <a href="contact.html" class="hover:underline">Contact</a>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <button id="themeToggle" class="icon-btn" aria-label="Toggle theme">🌙</button>
+        <a href="login.html" class="hidden md:inline-block btn btn-ghost">Login</a>
+        <button id="mobileMenuBtn" class="md:hidden p-2" aria-label="Open menu">
+          <span class="hamburger" id="hamburger"><span class="line line1"></span><span class="line line2"></span><span class="line line3"></span></span>
+        </button>
+      </div>
+    </nav>
+
+    <div id="mobileMenu" class="md:hidden mt-3 max-w-6xl mx-auto overflow-hidden max-h-0 transition-[max-height] duration-400">
+      <div class="backdrop-blur-md bg-white/60 dark:bg-gray-900/60 rounded-xl p-4 shadow-lg">
+        <a href="index.html" class="block py-2">Home</a>
+        <a href="rooms.html" class="block py-2">Rooms</a>
+        <a href="booking.html" class="block py-2">Book</a>
+        <a href="contact.html" class="block py-2">Contact</a>
+        <a href="login.html" class="block py-2">Login</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- SIGNUP FORM -->
+  <main class="pt-36 min-h-screen flex items-start justify-center p-6">
+    <form id="signupForm" class="w-full max-w-lg bg-white/60 dark:bg-gray-800/60 p-8 rounded-2xl shadow-lg">
+      <div class="flex items-center justify-between">
+        <h1 class="text-2xl font-bold">Create an account</h1>
+        <div class="text-sm text-gray-500">Already have one? <a href="login.html" class="text-primary-500 font-semibold">Login</a></div>
+      </div>
+
+      <p class="mt-2 text-sm text-gray-600">Sign up to manage bookings, save preferences, and get exclusive deals.</p>
+
+      <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <label class="flex flex-col">
+          <span class="text-sm">First name</span>
+          <input name="firstName" required class="p-3 rounded-lg border border-gray-200 dark:border-gray-700 bg-transparent" placeholder="Abheek">
+        </label>
+
+        <label class="flex flex-col">
+          <span class="text-sm">Last name</span>
+          <input name="lastName" required class="p-3 rounded-lg border border-gray-200 dark:border-gray-700 bg-transparent" placeholder="Samaddar">
+        </label>
+
+        <label class="flex flex-col sm:col-span-2">
+          <span class="text-sm">Email</span>
+          <input name="email" type="email" required class="p-3 rounded-lg border border-gray-200 dark:border-gray-700 bg-transparent" placeholder="something@gmail.com">
+        </label>
+
+        <label class="flex flex-col">
+          <span class="text-sm">Password</span>
+          <input name="password" type="password" minlength="8" required class="p-3 rounded-lg border border-gray-200 dark:border-gray-700 bg-transparent" placeholder="At least 8 characters">
+          <!-- PASSWORD STRENGTH METER -->
+          <div class="pwd-meter">
+            <div class="pwd-bar"><i style="width:0%"></i></div>
+            <div class="pwd-text">Start typing a password</div>
+          </div>
+        </label>
+
+        <label class="flex flex-col">
+          <span class="text-sm">Confirm password</span>
+          <input name="confirmPassword" type="password" minlength="8" required class="p-3 rounded-lg border border-gray-200 dark:border-gray-700 bg-transparent" placeholder="Repeat password">
+        </label>
+
+      </div>
+
+      <div class="mt-6 flex items-center gap-3">
+        <button type="submit" class="btn btn-primary btn-pill">Create account</button>
+        <!-- <button type="button" id="signupDemo" class="btn btn-ghost btn-sm">Sign up with demo</button> -->
+      </div>
+
+      <p id="signupMsg" class="mt-4 text-sm"></p>
+    </form>
+  </main>
+
+  <script src="js/script.js" defer></script>
+</body>
+</html>

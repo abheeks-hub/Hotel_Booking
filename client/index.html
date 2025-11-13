@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en" class="antialiased">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Comfort Zone — Hotel Booking</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: { 50: "#eef2ff", 100: "#e0e7ff", 500: "#6366f1" },
+            },
+          },
+        },
+      };
+    </script>
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+
+  <body
+    class="bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-100 transition-colors duration-300"
+  >
+    <!-- LOADING OVERLAY -->
+    <div
+      id="loadingOverlay"
+      class="fixed inset-0 z-[9999] flex items-center justify-center bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm transition-opacity duration-500"
+    >
+      <div class="flex flex-col items-center gap-4">
+        <div
+          class="w-14 h-14 rounded-full animate-pulse bg-primary-500/80 shadow-xl"
+        ></div>
+        <div class="text-sm text-gray-600 dark:text-gray-300">
+          Preparing the UI ✅…
+        </div>
+      </div>
+    </div>
+
+    <!-- TOASTS -->
+    <div
+      id="toastContainer"
+      class="fixed top-6 right-6 z-[9999] flex flex-col gap-3"
+    ></div>
+
+    <!-- NAVBAR -->
+    <header class="fixed top-4 left-0 right-0 z-50 px-4">
+      <nav
+        class="max-w-6xl mx-auto flex items-center justify-between p-3 backdrop-blur-md bg-white/40 dark:bg-gray-900/40 rounded-2xl shadow-lg transition-all"
+      >
+        <div class="flex items-center gap-3">
+          <a href="index.html" class="flex items-center gap-2">
+            <div
+              class="w-10 h-10 rounded-xl bg-gradient-to-br from-primary-400 to-primary-600 flex items-center justify-center text-white font-bold"
+            >
+              A
+            </div>
+            <div class="hidden sm:block">
+              <div class="font-semibold">Comfort Zone</div>
+              <div class="text-xs text-gray-800 dark:text-gray-300">
+                Comfort & Style
+              </div>
+            </div>
+          </a>
+        </div>
+
+        <div class="hidden md:flex items-center gap-6">
+          <a href="index.html" class="hover:underline">Home</a>
+          <a href="rooms.html" class="hover:underline">Rooms</a>
+          <a href="booking.html" class="hover:underline">Book</a>
+          <a href="contact.html" class="hover:underline">Contact</a>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <button
+            id="themeToggle"
+            class="p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800"
+            aria-label="Toggle theme"
+          >
+            🌙
+          </button>
+          <a
+            href="login.html"
+            class="hidden md:inline-block px-4 py-2 bg-primary-500 hover:bg-primary-600 text-white rounded-lg"
+            >Login</a
+          >
+
+          <!-- HAMBURGER -->
+          <button
+            id="mobileMenuBtn"
+            aria-label="Open menu"
+            class="md:hidden p-2"
+          >
+            <span class="hamburger" id="hamburger">
+              <span class="line line1"></span>
+              <span class="line line2"></span>
+              <span class="line line3"></span>
+            </span>
+          </button>
+        </div>
+      </nav>
+
+      <!-- Mobile menu (animated) -->
+      <div
+        id="mobileMenu"
+        class="md:hidden mt-3 max-w-6xl mx-auto overflow-hidden max-h-0 transition-[max-height] duration-400"
+      >
+        <div
+          class="backdrop-blur-md bg-white/60 dark:bg-gray-900/60 rounded-xl p-4 shadow-lg translate-y-0 animate-slide-in"
+        >
+          <a href="index.html" class="block py-2">Home</a>
+          <a href="rooms.html" class="block py-2">Rooms</a>
+          <a href="booking.html" class="block py-2">Book</a>
+          <a href="contact.html" class="block py-2">Contact</a>
+          <a href="login.html" class="block py-2">Login</a>
+        </div>
+      </div>
+    </header>
+
+    <main class="pt-36">
+      <!-- HERO -->
+      <section class="max-w-6xl mx-auto px-4">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+          <div>
+            <h1 class="text-4xl sm:text-5xl font-extrabold leading-tight">
+              Stay in comfort — book in seconds
+            </h1>
+            <p class="mt-4 text-gray-600 dark:text-gray-300">
+              Find modern rooms, stunning views, and excellent service. Instant
+              booking and secure payments.
+            </p>
+
+            <form
+              action="booking.html"
+              method="get"
+              class="mt-6 grid grid-cols-1 sm:grid-cols-4 gap-3"
+            >
+              <input
+                name="checkin"
+                type="date"
+                class="p-3 rounded-lg border border-gray-200 dark:border-gray-700"
+                required
+              />
+              <input
+                name="checkout"
+                type="date"
+                class="p-3 rounded-lg border border-gray-200 dark:border-gray-700"
+                required
+              />
+              <select
+                name="guests"
+                class="p-3 rounded-lg border border-gray-200 dark:border-gray-700"
+              >
+                <option value="1">1 guest</option>
+                <option value="2">2 guests</option>
+                <option value="3">3 guests</option>
+              </select>
+              <button class="p-3 bg-primary-500 text-white rounded-lg">
+                Search
+              </button>
+            </form>
+
+            <div class="flex gap-4 mt-6">
+              <div
+                class="p-3 bg-white/60 dark:bg-gray-800/60 rounded-xl shadow"
+              >
+                ⭐ 4.8 (1.2k)
+              </div>
+              <div
+                class="p-3 bg-white/60 dark:bg-gray-800/60 rounded-xl shadow"
+              >
+                📍 Himachal
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <!-- Image slider -->
+            <div class="relative rounded-2xl overflow-hidden shadow-xl">
+              <div id="slider" class="relative h-64 sm:h-80 lg:h-96">
+                <img
+                  src="https://picsum.photos/1200/600?image=1067"
+                  class="absolute inset-0 w-full h-full object-cover"
+                  data-index="0"
+                />
+                <img
+                  src="https://picsum.photos/1200/600?image=1011"
+                  class="absolute inset-0 w-full h-full object-cover opacity-0"
+                  data-index="1"
+                />
+                <img
+                  src="https://picsum.photos/1200/600?image=1003"
+                  class="absolute inset-0 w-full h-full object-cover opacity-0"
+                  data-index="2"
+                />
+                <button
+                  id="prevBtn"
+                  class="absolute left-3 top-1/2 -translate-y-1/2 p-2 rounded-full bg-white/60 dark:bg-gray-800/60"
+                >
+                  ◀
+                </button>
+                <button
+                  id="nextBtn"
+                  class="absolute right-3 top-1/2 -translate-y-1/2 p-2 rounded-full bg-white/60 dark:bg-gray-800/60"
+                >
+                  ▶
+                </button>
+                <div
+                  id="indicators"
+                  class="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2"
+                ></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick features -->
+        <!-- IMPROVED FEATURE CARDS -->
+        <div class="mt-12 feature-grid">
+          <div class="feature-card">
+            <div class="flex items-start">
+              <div class="feature-icon">
+                <!-- calendar/check SVG -->
+                <svg
+                  width="22"
+                  height="22"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  aria-hidden
+                >
+                  <path
+                    d="M7 11l3 3 7-7"
+                    stroke="#4f46e5"
+                    stroke-width="1.6"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <rect
+                    x="3.5"
+                    y="4.75"
+                    width="17"
+                    height="15.5"
+                    rx="2"
+                    stroke="#4f46e5"
+                    stroke-width="1.2"
+                    fill="none"
+                  />
+                </svg>
+              </div>
+
+              <div class="flex-1">
+                <div class="feature-title">Flexible Booking</div>
+                <div class="feature-desc">
+                  Free cancellation up to <strong>24 hours</strong> before
+                  check-in — change plans without stress.
+                </div>
+
+                <div class="feature-cta">
+                  <a href="booking.html" class="btn btn-primary btn-sm"
+                    >See policies</a
+                  >
+                  <span class="text-sm text-gray-500">or call support</span>
+                </div>
+              </div>
+            </div>
+            <svg
+              class="feature-deco"
+              width="64"
+              height="64"
+              viewBox="0 0 24 24"
+              fill="none"
+              aria-hidden
+            >
+              <circle cx="4" cy="4" r="1" fill="currentColor" />
+              <circle cx="10" cy="4" r="1" fill="currentColor" />
+              <circle cx="16" cy="4" r="1" fill="currentColor" />
+              <circle cx="4" cy="10" r="1" fill="currentColor" />
+              <circle cx="10" cy="10" r="1" fill="currentColor" />
+              <circle cx="16" cy="10" r="1" fill="currentColor" />
+            </svg>
+          </div>
+
+          <div class="feature-card">
+            <div class="flex items-start">
+              <div class="feature-icon">
+                <!-- location/map SVG -->
+                <svg
+                  width="22"
+                  height="22"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  aria-hidden
+                >
+                  <path
+                    d="M12 11.5a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"
+                    stroke="#6366f1"
+                    stroke-width="1.4"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <path
+                    d="M12 21s7-4.5 7-11a7 7 0 1 0-14 0c0 6.5 7 11 7 11z"
+                    stroke="#6366f1"
+                    stroke-width="1.2"
+                    fill="none"
+                  />
+                </svg>
+              </div>
+
+              <div class="flex-1">
+                <div class="feature-title">Top Locations</div>
+                <div class="feature-desc">
+                  Centrally located hotels near top attractions — less travel,
+                  more exploring.
+                </div>
+
+                <div class="feature-cta">
+                  <a href="rooms.html" class="btn btn-ghost btn-sm"
+                    >View locations</a
+                  >
+                  <span class="text-sm text-gray-500">map & directions</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="feature-card">
+            <div class="flex items-start">
+              <div class="feature-icon">
+                <!-- lock/credit card SVG -->
+                <svg
+                  width="22"
+                  height="22"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  aria-hidden
+                >
+                  <rect
+                    x="2.5"
+                    y="6.5"
+                    width="19"
+                    height="11"
+                    rx="2"
+                    stroke="#4f46e5"
+                    stroke-width="1.2"
+                    fill="none"
+                  />
+                  <path
+                    d="M6 10h.01"
+                    stroke="#4f46e5"
+                    stroke-width="1.6"
+                    stroke-linecap="round"
+                  />
+                  <path
+                    d="M12 16v.01"
+                    stroke="#4f46e5"
+                    stroke-width="1.6"
+                    stroke-linecap="round"
+                  />
+                </svg>
+              </div>
+
+              <div class="flex-1">
+                <div class="feature-title">Secure Payments</div>
+                <div class="feature-desc">
+                  PCI-compliant checkout and multiple trusted payment options
+                  for worry-free payments.
+                </div>
+
+                <div class="feature-cta">
+                  <a href="booking.html" class="btn btn-primary btn-sm"
+                    >Secure checkout</a
+                  >
+                  <span class="text-sm text-gray-500">encrypted & fast</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Popular rooms preview (same as before) -->
+      <section class="max-w-6xl mx-auto px-4 mt-12">
+        <h2 class="text-2xl font-semibold">Popular Rooms</h2>
+        <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <!-- room cards (same structure as before) -->
+          <article
+            class="rounded-xl overflow-hidden bg-white/60 dark:bg-gray-800/60 shadow"
+            data-price="4499"
+            data-type="deluxe"
+          >
+            <img
+              src="https://picsum.photos/800/600?image=1025"
+              class="w-full h-48 object-cover"
+              alt="room"
+            />
+            <div class="p-4">
+              <div class="flex items-center justify-between">
+                <h3 class="font-semibold">Deluxe Room</h3>
+                <div class="text-primary-500 font-bold">₹4,499</div>
+              </div>
+              <p class="text-sm text-gray-600 dark:text-gray-300 mt-2">
+                King bed · Free WiFi · Breakfast included
+              </p>
+              <div class="mt-4 flex items-center gap-3">
+                <a
+                  href="booking.html"
+                  class="text-sm px-3 py-2 bg-primary-500 text-white rounded-lg"
+                  >Book now</a
+                >
+                <a href="rooms.html" class="text-sm px-3 py-2 border rounded-lg"
+                  >View details</a
+                >
+              </div>
+            </div>
+          </article>
+
+          <article
+            class="rounded-xl overflow-hidden bg-white/60 dark:bg-gray-800/60 shadow"
+            data-price="6199"
+            data-type="superior"
+          >
+            <img
+              src="https://picsum.photos/800/600?image=1008"
+              class="w-full h-48 object-cover"
+              alt="room"
+            />
+            <div class="p-4">
+              <div class="flex items-center justify-between">
+                <h3 class="font-semibold">Superior Room</h3>
+                <div class="text-primary-500 font-bold">₹6,199</div>
+              </div>
+              <p class="text-sm text-gray-600 dark:text-gray-300 mt-2">
+                Sea view · Double bed · Breakfast included
+              </p>
+              <div class="mt-4 flex items-center gap-3">
+                <a
+                  href="booking.html"
+                  class="text-sm px-3 py-2 bg-primary-500 text-white rounded-lg"
+                  >Book now</a
+                >
+                <a href="rooms.html" class="text-sm px-3 py-2 border rounded-lg"
+                  >View details</a
+                >
+              </div>
+            </div>
+          </article>
+
+          <article
+            class="rounded-xl overflow-hidden bg-white/60 dark:bg-gray-800/60 shadow"
+            data-price="10999"
+            data-type="suite"
+          >
+            <img
+              src="https://picsum.photos/800/600?image=1031"
+              class="w-full h-48 object-cover"
+              alt="room"
+            />
+            <div class="p-4">
+              <div class="flex items-center justify-between">
+                <h3 class="font-semibold">Suite</h3>
+                <div class="text-primary-500 font-bold">₹10,999</div>
+              </div>
+              <p class="text-sm text-gray-600 dark:text-gray-300 mt-2">
+                Spacious · Living area · Complimentary minibar
+              </p>
+              <div class="mt-4 flex items-center gap-3">
+                <a
+                  href="booking.html"
+                  class="text-sm px-3 py-2 bg-primary-500 text-white rounded-lg"
+                  >Book now</a
+                >
+                <a href="rooms.html" class="text-sm px-3 py-2 border rounded-lg"
+                  >View details</a
+                >
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- Footer (unchanged) -->
+      <footer
+        class="mt-20 bg-gradient-to-t from-gray-50 to-transparent dark:from-gray-900 py-12"
+      >
+        <div
+          class="max-w-6xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-6"
+        >
+          <div>
+            <div class="font-bold text-lg">Azure Suites</div>
+            <p class="mt-3 text-sm text-gray-600 dark:text-gray-300">
+              Luxury stays in the heart of the city.
+            </p>
+          </div>
+          <div>
+            <h4 class="font-semibold">Useful links</h4>
+            <ul class="mt-3 space-y-2 text-sm text-gray-600 dark:text-gray-300">
+              <li><a href="rooms.html" class="hover:underline">Rooms</a></li>
+              <li><a href="booking.html" class="hover:underline">Book</a></li>
+              <li>
+                <a href="contact.html" class="hover:underline">Contact</a>
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="font-semibold">Subscribe</h4>
+            <form class="mt-3 flex gap-2">
+              <input
+                type="email"
+                placeholder="you@example.com"
+                class="p-2 rounded-lg border border-gray-200 dark:border-gray-700 flex-1"
+              />
+              <button class="px-4 py-2 bg-primary-500 text-white rounded-lg">
+                Subscribe
+              </button>
+            </form>
+          </div>
+        </div>
+
+        <div
+          class="max-w-6xl mx-auto px-4 mt-8 border-t border-gray-200 dark:border-gray-800 pt-6 text-sm text-gray-600 dark:text-gray-300 flex items-center justify-between"
+        >
+          <div>
+            © <span id="year"></span> Azure Suites. All rights reserved.
+          </div>
+          <div class="flex gap-4">
+            <a href="#">Privacy</a>
+            <a href="#">Terms</a>
+          </div>
+        </div>
+      </footer>
+    </main>
+
+    <script src="js/script.js" defer></script>
+  </body>
+</html>
