@@ -1,270 +1,258 @@
-# 🏨 Hotel Booking System
+🏨 Hotel Booking System
 
-A full-stack hotel booking website that allows users to search for hotels, view room availability, and make reservations. Admins can manage hotel listings and oversee all bookings through a dedicated dashboard.
+A full-stack Hotel Booking Website that enables users to search for hotels, view room availability, and make reservations.
+Admins can manage hotels, rooms, and bookings through a secure dashboard.
 
-## ✨ Features
+✨ Features
+👤 User Features
 
-### User Features
-- 🔍 Search hotels by location, dates, and guest count
-- 🏠 View detailed hotel information and room availability
-- 💳 Book rooms with real-time availability checking
-- 👤 User authentication and profile management
-- 📋 View booking history and manage reservations
-- ⭐ Rate and review hotels
+🔍 Search hotels by location, dates, and number of guests
 
-### Admin Features
-- 🏢 Manage hotel listings (Create, Read, Update, Delete)
-- 🛏️ Manage room types and availability
-- 📊 View and manage all user reservations
-- 👥 User management dashboard
-- 📈 Booking analytics and insights
+🏠 View detailed hotel and room information
 
-## 🛠️ Tech Stack
+💳 Book rooms with real-time availability
 
-### Frontend
-- **React** - UI library for building user interfaces
-- **Vite** - Fast build tool and development server
-- **React Router** - Client-side routing
-- **Axios** - HTTP client for API requests
-- **CSS Modules/Tailwind** - Styling solution
+🔐 Register and log in using secure password hashing
 
-### Backend
-- **Node.js** - JavaScript runtime
-- **Express.js** - Web application framework
-- **MongoDB** - NoSQL database
-- **Mongoose** - MongoDB object modeling
-- **Bcrypt** - Password hashing
-- **JWT** - Authentication tokens
-- **Express Validator** - Request validation
+📋 View and manage booking history
 
-## 📁 Project Structure
+⭐ Rate and review hotels
 
-```
+🛠️ Admin Features
+
+🏢 Manage hotel listings (Add, Edit, Delete)
+
+🛏️ Manage room types, availability, and pricing
+
+👥 Manage users and their bookings
+
+📊 View all reservations and booking analytics
+
+🧩 Tech Stack
+Frontend
+
+HTML5 – Structure and layout
+
+Tailwind CSS – Fast and responsive styling
+
+JavaScript (Vanilla) – Dynamic content and interactivity
+
+Fetch API / Axios – To communicate with backend APIs
+
+Backend
+
+Node.js – JavaScript runtime
+
+Express.js – Backend web framework
+
+MongoDB – NoSQL database for storing users, hotels, and bookings
+
+Mongoose – ODM for MongoDB
+
+Bcrypt – Secure password hashing
+
+JWT – Authentication and authorization
+
+CORS & Express Validator – Security and input validation
+
+📁 Project Structure
 hotel-booking-system/
-├── frontend/
-│   ├── src/
-│   │   ├── components/
+├── client/
+│   ├── assets/
+│   ├── css/
+│   ├── js/
+│   │   ├── api/
 │   │   ├── pages/
-│   │   ├── services/
-│   │   ├── utils/
-│   │   ├── App.jsx
-│   │   └── main.jsx
-│   ├── public/
-│   ├── package.json
-│   └── vite.config.js
+│   │   ├── components/
+│   │   └── main.js
+│   ├── index.html
+│   ├── hotel.html
+│   ├── booking.html
+│   ├── login.html
+│   └── register.html
 │
-└── backend/
+└── server/
     ├── src/
+    │   ├── config/
     │   ├── controllers/
     │   ├── models/
     │   ├── routes/
     │   ├── middleware/
-    │   ├── config/
     │   └── server.js
     ├── package.json
     └── .env
-```
 
-## 🚀 Getting Started
+🚀 Getting Started
+Prerequisites
 
-### Prerequisites
-- Node.js (v14 or higher)
-- MongoDB (local or Atlas account)
-- npm or yarn
+Node.js (v14+)
 
-### Installation
+MongoDB (Local or MongoDB Atlas)
 
-1. **Clone the repository**
-```bash
-git clone <your-repo-url>
-cd hotel-booking-system
-```
+npm or yarn
 
-2. **Setup Backend**
-```bash
+Installation Steps
+
+Clone the repository
+
+git clone https://github.com/abheeks-hub/Hotel_Booking.git
+cd Hotel_Booking
+
+
+Setup Backend
+
 cd backend
 npm install
-```
 
-3. **Configure Environment Variables**
 
-Create a `.env` file in the backend directory:
-```env
+Create Environment Variables
+Inside /backend/.env:
+
 PORT=5000
 MONGODB_URI=mongodb://localhost:27017/hotel-booking
-JWT_SECRET=your_jwt_secret_key_here
+JWT_SECRET=your_secret_key
 JWT_EXPIRE=7d
 NODE_ENV=development
-```
 
-4. **Setup Frontend**
-```bash
-cd frontend
-npm install
-```
 
-5. **Configure Frontend API URL**
+Setup Frontend
 
-Create a `.env` file in the frontend directory:
-```env
-VITE_API_URL=http://localhost:5000/api
-```
+Open /frontend folder in VS Code
 
-### Running the Application
+Link API URLs in your JS files (e.g. const BASE_URL = 'http://localhost:5000/api';)
 
-1. **Start MongoDB** (if running locally)
-```bash
+Running the Application
+
+Start MongoDB
+
 mongod
-```
 
-2. **Start Backend Server**
-```bash
-cd server
+
+Start Backend Server
+
+cd backend
 npm run dev
-```
 
-3. **Start Frontend Development Server**
-```bash
-cd client
-npm run dev
-```
 
-4. **Access the Application**
-- Frontend: http://localhost:5173
-- Backend API: http://localhost:5000
+Open Frontend
 
-## 📝 API Endpoints
+Open frontend/index.html directly in your browser
+or
 
-### Authentication
-- `POST /api/auth/register` - Register new user
-- `POST /api/auth/login` - User login
-- `GET /api/auth/profile` - Get user profile
+Use a local server like Live Server in VS Code
 
-### Hotels
-- `GET /api/hotels` - Get all hotels
-- `GET /api/hotels/:id` - Get hotel by ID
-- `POST /api/hotels` - Create hotel (Admin)
-- `PUT /api/hotels/:id` - Update hotel (Admin)
-- `DELETE /api/hotels/:id` - Delete hotel (Admin)
+Access Points
 
-### Bookings
-- `POST /api/bookings` - Create booking
-- `GET /api/bookings` - Get user bookings
-- `GET /api/bookings/:id` - Get booking by ID
-- `PUT /api/bookings/:id` - Update booking
-- `DELETE /api/bookings/:id` - Cancel booking
+Frontend: http://localhost:5500
+ (or your Live Server port)
 
-### Admin
-- `GET /api/admin/bookings` - Get all bookings
-- `GET /api/admin/users` - Get all users
-- `PUT /api/admin/bookings/:id/status` - Update booking status
+Backend API: http://localhost:5000
 
-## 🗃️ Database Schema
-
-### User Model
-```javascript
+📝 API Endpoints
+Authentication
+Method	Endpoint	Description
+POST	/api/auth/register	Register new user
+POST	/api/auth/login	User login
+GET	/api/auth/profile	Fetch user profile (Protected)
+Hotels
+Method	Endpoint	Description
+GET	/api/hotels	Get all hotels
+GET	/api/hotels/:id	Get specific hotel
+POST	/api/hotels	Add new hotel (Admin only)
+PUT	/api/hotels/:id	Update hotel info (Admin)
+DELETE	/api/hotels/:id	Remove hotel (Admin)
+Bookings
+Method	Endpoint	Description
+POST	/api/bookings	Create booking
+GET	/api/bookings	Get user’s bookings
+GET	/api/bookings/:id	Get booking by ID
+PUT	/api/bookings/:id	Update booking
+DELETE	/api/bookings/:id	Cancel booking
+🗃️ Database Schemas
+User Model
 {
   name: String,
-  email: String (unique),
-  password: String (hashed),
-  role: String (user/admin),
+  email: { type: String, unique: true },
+  password: String, // Hashed with bcrypt
+  role: { type: String, default: "user" },
   phone: String,
-  createdAt: Date
+  createdAt: { type: Date, default: Date.now }
 }
-```
 
-### Hotel Model
-```javascript
+Hotel Model
 {
   name: String,
   description: String,
-  location: Object,
+  location: String,
   images: [String],
   amenities: [String],
   rooms: [RoomSchema],
   rating: Number,
-  reviews: [ReviewSchema],
-  createdAt: Date
+  createdAt: { type: Date, default: Date.now }
 }
-```
 
-### Booking Model
-```javascript
+Booking Model
 {
-  user: ObjectId (ref: User),
-  hotel: ObjectId (ref: Hotel),
-  room: String,
+  user: { type: ObjectId, ref: "User" },
+  hotel: { type: ObjectId, ref: "Hotel" },
   checkIn: Date,
   checkOut: Date,
   guests: Number,
   totalPrice: Number,
-  status: String,
-  createdAt: Date
+  status: { type: String, default: "confirmed" },
+  createdAt: { type: Date, default: Date.now }
 }
-```
 
-## 🔐 Security Features
+🔐 Security Features
 
-- Password hashing with bcrypt
-- JWT-based authentication
-- Protected routes and API endpoints
-- Input validation and sanitization
-- CORS configuration
-- Environment variable protection
+Passwords hashed using bcrypt
 
-## 🎨 UI/UX Features
+JWT authentication for secure login
 
-- Responsive design for all devices
-- Intuitive search and filtering
-- Real-time availability updates
-- Loading states and error handling
-- Smooth transitions and animations
-- Accessible components
+Protected routes for users and admins
 
-## 🧪 Testing
+Input validation & sanitization
 
-```bash
+CORS properly configured
+
+Environment variables hidden with .env
+
+🎨 UI/UX Features
+
+Fully responsive with Tailwind CSS
+
+Simple, clean, and user-friendly layout
+
+Loading states and error handling
+
+Smooth transitions and modals
+
+Mobile-first design
+
+🧪 Testing
 # Backend tests
 cd backend
 npm test
 
-# Frontend tests
-cd frontend
-npm test
-```
-
-## 📦 Build for Production
-
-### Frontend
-```bash
-cd frontend
-npm run build
-```
-
-### Backend
-```bash
+📦 Deployment
+Backend
 cd backend
 npm start
-```
 
-## 🤝 Contributing
+Frontend
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+Upload all files in /frontend to your hosting provider (Netlify, Vercel, etc.)
 
-## 📄 License
+🤝 Contributing
+
+Contributions are welcome!
+Please open an issue or submit a pull request.
+
+📄 License
 
 This project is licensed under the MIT License.
 
-## 👨‍💻 Author
+👨‍💻 Author
 
-Your Name - Frontend Competition Submission
-
-## 🙏 Acknowledgments
-
-- Built for Frontend Competition
-- Inspired by modern hotel booking platforms
-- Thanks to the open-source community
-
----
-
-**Note**: This is a competition submission project. For questions or support, please reach out to the development team.
+Abheek – Developer & Maintainer
+GitHub: abheeks-hub
